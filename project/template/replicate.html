@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<form name="exam_form" id="exam_form" mathod='post'>     
+							{% csrf_token %}
+
+
+		<label>Type Old Exam ID : </label>
+		<input type="text" id="old_exam_id" name="old_exam_id">
+		<p></p>
+
+
+		<label>Type New Exam ID : </label>
+		<input type="text" id="new_exam_id" name="new_exam_id">
+		<p></p>
+		
+
+		<input type="button" name="submit_button" value="Submit" id="submit_button">
+		<p></p>
+		<p></p>
+		<label id="error_txt"></label>
+		
+
+	</form>
+
+
+
+<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="/static/js/jquery.form.js"></script>
+
+
+<script type="text/javascript">
+	$('#submit_button').click(function(){
+
+		if($('#old_exam_id').val() ==''){
+
+			alert("Please Give Old Exam Id");
+			
+		}
+		else if($('#new_exam_id').val() ==''){
+
+			alert("Please Give New Exam Id");
+			
+		}
+		else{
+
+			 $('#exam_form').ajaxSubmit({ url: '/replicate_record/', type: 'post', 
+          			success: function(data){ 
+
+          				if(data.status == 1){
+          					
+          					window.location.href="/old_parameter/"+data.new_record_id+"/";
+          				}
+          				
+          				else {
+
+          					alert(data.message);
+          				}
+
+          			}});
+		}
+	});
+</script>
+
+
+
+</body>
+</html>

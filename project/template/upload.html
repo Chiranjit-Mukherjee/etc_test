@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+</head>
+<body>
+
+    <script src="/static/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/js/jquery.form.js"></script>
+
+     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
+
+	<form action="" method="post" enctype="multipart/form-data" id="upload_form" name="upload_form">
+									{% csrf_token %}
+
+		<p></p>
+		<input type="text" id="result_id" name="result_id" placeholder="Type Exam ID">
+
+		<p></p>
+		<input type="file" id="the_file" name="the_file">
+
+		<p></p>
+
+
+		<label>Choose Separator</label>
+			<select name="separator" class="form-control inputtype1">
+				<option>Comma</option>
+				<option>Pipe</option>
+		  	</select>
+	  <p></p>
+	  <p></p>
+
+	  <label>File Have Header</label>
+			  	<select name="header" id="header" class="form-control inputtype1">
+					<option>Yes</option>
+					<option>No</option>
+			  </select>
+
+	  <p></p>
+	  
+	  <div id="header_field">
+	  <label id=""> Upload Header File</label>
+
+	  <input type="file" name="header_file">
+
+	  <p></p>
+
+	  <label>Choose Header Separator</label>
+	  		<select id="header_separator" name="header_separator" class="form-control inputtype1">
+					<option>Comma</option>
+					<option>Pipe</option>
+			  </select>
+
+	  </div>
+
+
+		<p></p>
+		<input type="button" id="submit_button" name="submit" value="Submit">
+
+	</form>
+
+
+
+
+
+<!-- ========================================================== -->
+<script type="text/javascript">
+
+// By deafult  header file upload field will be hidden
+$( document ).ready(function() {
+    $('#header_field').hide();
+});
+
+
+// Toggle for header file upload field
+	
+$("#header").change(function(){
+	 
+	if($('#header').val() == 'Yes'){
+		$('#header_field').hide();
+	}
+	else{
+		$('#header_field').show();		
+	}
+
+});
+
+
+// validation part
+$('#submit_button').click(function(){
+
+	console.log($('#header_file').val());
+
+	if($('#result_id').val() == ''){
+
+		alert('Please Give Exam ID');
+	}
+	else if($('#the_file').val() == ''){
+		alert('Please Upload Data File');
+
+	}
+	// else if($('#header').val() == 'No' && $('#header_file').val() == null){
+
+	// 	alert('Please upload header file');
+	// }
+	else{
+		
+        $('#upload_form').ajaxSubmit({ url: '/upload_file/', type: 'post', 
+          success: function(data){ 
+
+            		if (data.status == 1) {
+            			var id = data.id;
+						window.location.href = '/set_format/'+id.toString()+'/';
+						
+					}
+					else if(data.status == 3) {
+
+						alert(data.message);
+						setTimeout(function(){ window.location.reload(); }, 500);
+					}
+
+					else{
+						alert(data.message);
+					}
+
+            }});
+
+	}
+
+
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Service Renewal Management</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+    <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/vendor/animate/animate.css">
+    <!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/login/css/util.css">
+    <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/login/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+
+
+				<form class="login100-form validate-form" method="post" id="login_form">  {% csrf_token %}
+					<span class="login100-form-title p-b-26">
+						<img src="/static/login/image/logo.jpg" style=" width:120px; height:120px; margin-bottom:10px;">
+                        <p style=" font-family:Lato; font-size:21px; font-weight:300;">Result Management</p>
+					</span>
+					<!-- <span class="login100-form-title p-b-48">
+						<i class="zmdi zmdi-font"></i>
+					</span> -->
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+						<input class="input100" type="text" id="username" name="username">
+						<span class="focus-input100" data-placeholder="Username"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<span class="btn-show-pass">
+							<i class="zmdi zmdi-eye"></i>
+						</span>
+						<input class="input100" type="password" id="password" name="password">
+						<span class="focus-input100" data-placeholder="Password"></span>
+					</div>
+
+					<div class="">
+						<label><h5>Captcha : {{captcha}}</h5></label>
+					</div>
+
+
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="text" id="captcha" name="captcha">
+						<span class="focus-input100" data-placeholder="Type Captcha"></span>
+					</div>
+
+
+
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button type="button" class="login100-form-btn" id="login_button">
+								Login
+							</button>
+						</div>
+					</div>
+
+					<div class="text-center p-t-115">
+						<label id="error_msg"></label>
+					</div>
+
+
+					
+
+					<!-- <div class="text-center p-t-115">
+						<span class="txt1">
+							Don’t have an account?
+						</span>
+
+						<a class="txt2" href="#">
+							Sign Up
+						</a>
+					</div> -->
+				</form>
+
+
+
+			</div>
+		</div>
+	</div>
+	
+
+	<div id="dropDownSelect1"></div>
+	
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<!-- <script src="/static/login/vendor/select2/select2.min.js"></script> -->
+<!--===============================================================================================-->
+	<script src="/static/login/js/main.js"></script>
+
+
+
+<script type="text/javascript">
+	
+$('#login_button').click(function(){
+
+		if($('#username').val() == ''){
+			$('#error_msg').text("Please Give Username");
+			setTimeout(function(){ $('#error_msg').text(''); }, 3000);
+
+		}
+		else if($('#password').val() == ''){
+			$('#error_msg').text('Please Give Password');
+			setTimeout(function(){ $('#error_msg').text(''); }, 3000);
+
+		}
+		else if($('#captcha').val() == ''){
+			$('#error_msg').text('Please Type Captcha');
+			setTimeout(function(){ $('#error_msg').text(''); }, 3000);
+
+		}
+		else{
+
+				$.post( "/user_login/", $( "#login_form" ).serialize()).done(function(data){
+		
+					console.log(data.status)
+
+					if(data.status == 1){
+
+						window.location.href = '/dashboard/';
+
+					}
+					else if(data.status == 2){
+						$('#error_msg').text(data.message);
+						setTimeout(function(){ window.location.reload(); }, 3000);
+
+					}
+
+					else{
+						$('#error_msg').text(data.message);
+						setTimeout(function(){ $('#error_msg').text(''); }, 3000);
+					}
+				});
+
+		}
+});
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>

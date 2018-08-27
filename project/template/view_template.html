@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<form name="exam_form" id="exam_form" mathod='post'>     
+							{% csrf_token %}
+
+
+		<label>Type Exam ID : </label>
+		<input type="number" id="exam_id" name="exam_id" min="0" max="5000" >
+		<p></p>
+		
+
+		<input type="button" name="back_button" value="Back" id="back_button">
+		<input type="button" name="submit_button" value="Submit" id="submit_button">
+		<p></p>
+		<p></p>
+		<label id="error_txt"></label>
+		
+
+	</form>
+
+
+<script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+  <script src="/static/js/jquery.form.js"></script>
+
+
+<script type="text/javascript">
+	$('#submit_button').click(function(){
+
+		if($('#exam_id').val() ==''){
+			$('#error_txt').text("Please Give Exam ID No");
+			setTimeout(function(){ window.location.reload(); }, 3000);
+		}
+		else{
+
+			 $('#exam_form').ajaxSubmit({ url: '/view_template/', type: 'post', 
+          			success: function(data){ 
+
+          				if(data.status == 1){
+
+
+          					record_id = data.record_id;
+          					window.location.href="/template/"+record_id.toString()+'/';
+
+          				}
+          				else{
+          					$('#error_txt').text(data.message);
+							setTimeout(function(){ window.location.reload(); }, 3000);
+          				}
+
+          			}});
+		}
+	});
+
+
+
+$('#back_button').click(function(){
+	window.location.href="/dashboard/";
+});
+</script>
+
+</body>
+</html>

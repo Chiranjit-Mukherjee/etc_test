@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<script src="/static/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/js/jquery.form.js"></script>
+
+
+
+
+</head>
+<body>
+
+
+
+	<form action="" method="post" enctype="multipart/form-data" id="upload_form" name="upload_form">
+									{% csrf_token %}
+
+		<p></p>
+		<label>New Exam ID : {{new_exam_id}}</label>
+		
+		<p></p>
+		<p></p>
+		<label>Replicated Exam ID : {{old_exam_id}} </label>
+		<input type="hidden" name="result_id" id="result_id" value="{{new_exam_id}}">
+
+		<input type="hidden" name="extra_info" id="extra_info">
+
+		<p></p>
+		<label>Choose File Type : </label>
+		
+		<select  id="file_type" name="file_type"  class="form-control inputtype1">
+				<!-- <option>xls</option> -->
+				<!-- <option>xlsx</option> -->
+				 <option value="select" selected="selected" disabled>Please Select</option>
+				<option>csv</option>
+				<option>txt</option>
+		</select>
+
+		<p></p>
+		<div id="separator_div">
+		<label>Choose Separator</label>
+			<select name="separator" id="separator" class="form-control inputtype1">
+				 <option value="select" selected="selected" disabled>Please Select</option>
+				<option>Comma</option>
+				<option>Pipe</option>
+				<option>Colon</option>
+		  	</select>
+
+		 </div>
+		 <p></p>
+
+		 <!-- <label> Choose No of Files To Upload </label> -->
+		 	<select name="no_of_file" id="no_of_file" class="form-control inputtype1">
+		 		 <option value="select" selected="selected" disabled>Please Select</option>
+				<option>Single</option>
+				<option>Multiple</option>
+				
+		  	</select>
+		 <P></P>
+
+
+ <!-- For Single File Option -->
+		 <div id="single_file">
+		 	<label>Choose Your data file : </label>
+			<input type="file" accept=".csv,.txt,.CSV,.TXT" id="main_file" name="main_file">
+
+			<p></p>
+			<p></p>
+
+			 <label>File Have Header ? </label>
+
+			  	<select name="header" id="header" class="form-control inputtype1">
+					<option>Yes</option>
+					<option>No</option>
+			  </select>
+
+			  <p></p>
+			  <p></p>
+			   	<div id="header_field">
+						  <label id=""> Upload Column Header File</label>
+
+						  <input type="file" accept=".txt,.TXT" id="col_header_file" name="col_header_file">
+
+						  <p></p>
+
+						  <label>Choose Header Separator</label>
+						  		<select id="header_separator" name="header_separator" class="form-control inputtype1">
+										<option>Comma</option>
+										<option>Pipe</option>
+								  </select>
+
+				  </div>
+
+		 </div>
+
+
+
+
+ <!-- For multiple file option -->
+		 <div id="multi_file">
+					<label> Header Section File </label>
+					<input type="file" accept=".csv,.txt,.CSV,.TXT" id="header_file" name="header_file">
+
+					<label>Primary Key </label><input type="text" name="head_primary" id="head_primary">
+
+					<p></p>
+
+					<p></p>
+					<label> Body Section File </label>
+					<!-- <input type="file" accept=".xls,.xlsx,.csv,.txt,.XLS,.XLSX,.CSV,.TXT" id="the_file" name="the_file"> -->
+					<input type="file" accept=".csv,.txt,.CSV,.TXT" id="body_file" name="body_file">
+
+					<label>Primary Key </label><input type="text" name="body_primary" id="body_primary">
+
+
+					<p></p>
+
+					<p></p>
+					<label> Footer Section File </label>
+					<!-- <input type="file" accept=".xls,.xlsx,.csv,.txt,.XLS,.XLSX,.CSV,.TXT" id="the_file" name="the_file"> -->
+					<input type="file" accept=".csv,.txt,.CSV,.TXT" id="footer_file" name="footer_file">
+
+					<label>Primary Key </label><input type="text" name="footer_primary" id="footer_primary">
+
+
+		</div> 
+
+	  <p></p>
+	  <label> Code Column Field Present ? </label>
+
+	  <select id="code_field" name="code_field" class="form-control inputtype1">
+	  				<option value="select" selected="selected" disabled>Please Select</option>
+					<option>No</option>
+					<option>Yes</option>
+			  </select>
+
+			  <p></p>
+			  <p></p>
+	  <div id="code_column">
+
+	  	<label>Paste your code column text below</label>
+	  	
+	  	<p></p>
+	  	<p></p>
+	  	<textarea  name="code_field_text" id="code_field_text"></textarea>
+	  	<p></p>
+	  	<p></p>
+
+	  	<label>Give Code field row separator :</label>
+
+	  	
+	  	<input type="text" name="code_field_row_separator" id="code_field_row_separator">
+	  	<p></p>
+
+	  	<label>Give Code field column separator :</label>
+	  	
+	  	
+	  	<input type="text" name="code_field_col_separator" id="code_field_col_separator">
+
+
+	  </div>
+
+		<p></p>
+		<input type="button" id="submit_button" name="submit" value="Submit">
+
+	</form>
+
+
+
+
+<!-- ========================================================== -->
+<script type="text/javascript">
+
+// By deafult  header file upload field will be hidden
+$( document ).ready(function() {
+    $('#header_field').hide();
+    // $('#separator_div').hide();
+    $('#code_column').hide();
+
+    $('#single_file').hide();
+	$('#multi_file').hide();
+
+	$('#no_of_file').hide();
+
+
+
+	if("{{no_of_files}}" == "1"){
+
+		$('#single_file').show();
+		$('#multi_file').hide();
+
+	}
+	else{
+
+		$('#single_file').hide();
+		$('#multi_file').show();
+
+	}
+
+});
+
+
+// Toggle for header file upload field
+	
+$("#header").change(function(){
+	 
+	if($('#header').val() == 'Yes'){
+		$('#header_field').hide();
+	}
+	else{
+		$('#header_field').show();		
+	}
+
+});
+
+
+
+// $("#no_of_file").change(function(){
+	 
+// 	if($('#no_of_file').val() == 'Single'){
+// 		$('#single_file').show();
+// 		$('#multi_file').hide();
+// 	}
+// 	else{
+// 		$('#single_file').hide();
+// 		$('#multi_file').show();	
+// 	}
+
+// });
+
+
+
+
+$("#code_field").change(function(){
+	 
+	if($('#code_field').val() == 'Yes'){
+		$('#code_column').show();
+	}
+	else{
+		$('#code_column').hide();		
+	}
+
+});
+
+
+
+
+// validation part
+$('#submit_button').click(function(){
+
+		$("#submit_button").prop('disabled', true);
+
+			
+		if($('#file_type').val() == null){
+			alert("You must select File Type");
+
+			$("#submit_button").prop('disabled', false);
+
+
+		}
+		else if($('#separator').val() == null){
+			alert("You must select separator");
+
+			$("#submit_button").prop('disabled', false);
+
+		}
+		// else if($('#no_of_file').val() == null){
+			
+		// 	alert("You must select the no of File you want to upload ");
+
+		// 	$("#submit_button").prop('disabled', false);
+
+
+		// }		
+
+		// else if($('#no_of_file').val() != 'Single'){
+
+		// 		if($('#header_file').val() == '' && $('#body_file').val() == '' && $('#footer_file').val() == ''){
+
+		// 			alert('Please Upload Your Data File');
+					
+		// 			$("#submit_button").prop('disabled', false);
+
+		// 		}
+		// 		else if($('#header_file').val() == ''){
+
+		// 			alert('Please Upload Header File');
+
+		// 			$("#submit_button").prop('disabled', false);
+
+
+		// 		}
+		// 		else if($('#body_file').val() == ''){
+
+		// 			alert('Please Upload Body File');
+
+		// 			$("#submit_button").prop('disabled', false);
+
+
+		// 		}
+		// 		else if($('#footer_file').val() == ''){
+
+		// 			alert('Please Upload Footer File');
+
+		// 			$("#submit_button").prop('disabled', false);
+
+
+		// 		}
+
+		// 		// # checking for primary khey fields
+		// 		else if($('#header_file').val() != '' && $('#head_primary').val() == ''){
+
+		// 			alert('Please Specify Primary Key Field of Header Section File');
+
+		// 			$("#submit_button").prop('disabled', false);
+
+
+		// 		}
+		// 		else if($('#body_file').val() != '' && $('#body_primary').val() == ''){
+
+		// 			alert('Please Specify Primary Key Field of Body Section File');
+
+		// 			$("#submit_button").prop('disabled', false);
+
+					
+
+		// 		}
+		// 		else if($('#footer_file').val() != '' && $('#footer_primary').val() == ''){
+
+		// 			alert('Please Specify Primary Key Field of Footer Section File');
+
+		// 			$("#submit_button").prop('disabled', false);
+
+					
+		// 		}
+
+		// 		else if(valid_data_extension()){
+
+		// 			if($('#header_file').val() == $('#body_file').val() && $('#body_file').val() == $('#footer_file').val() ){
+						
+		// 				alert('You can not use a single file three times');
+
+		// 				$("#submit_button").prop('disabled', false);
+
+
+		// 			}
+		// 			else{
+
+						
+
+		// 				 form_post();
+
+		// 			}			      
+
+		// 		}
+
+		// }
+
+	else if($('#main_file').val() == ''){
+
+		alert('Please Upload Your data file');
+
+		$("#submit_button").prop('disabled', false);
+
+
+	}
+
+	else if($('#header').val() == 'No' && $('#col_header_file').val() == ''){
+
+		alert("Please Upload Column Header File");
+
+		$("#submit_button").prop('disabled', false);
+
+
+	}
+	else if($('#code_field').val() == null){
+			alert("You must select that, you file/s contains code field or not");
+
+			$("#submit_button").prop('disabled', false);
+
+
+	}
+	else if($('#code_field').val() == 'Yes' && $('#code_field_text').val() == ''){
+		
+		alert("You must specify code field text");
+
+		$("#submit_button").prop('disabled', false);
+
+
+	}
+	
+	else if(valid_data_extension()){
+
+
+		if($('#code_field').val() == 'Yes' && code_field_valid()){
+
+			form_post();
+
+		}
+		else if($('#code_field').val() == 'No'){
+
+			form_post();
+		}		      
+
+	}
+
+
+});
+
+
+
+function code_field_valid(){
+
+	if($('#code_field_row_separator').val() == ''){
+		alert("You must specify code field row separator character");
+
+		$("#submit_button").prop('disabled', false);
+
+		return false;
+	}
+	else if($('#code_field_col_separator').val() == ''){
+		alert("You must specify code field column separator character");
+
+		$("#submit_button").prop('disabled', false);
+
+		return false;
+
+	}
+	else if($('#code_field_text').val().toString().indexOf($('#code_field_row_separator').val()) < 0){
+		alert("Your Code column text does not contain the row separator");
+
+		$("#submit_button").prop('disabled', false);
+
+		return false;
+
+	}
+	else if($('#code_field_text').val().toString().indexOf($('#code_field_col_separator').val()) < 0){
+		alert("Your Code column text does not contain the column separator");
+
+		$("#submit_button").prop('disabled', false);
+
+		return false;
+	}
+
+	return true;
+
+}
+
+
+
+
+
+function form_post(){
+
+	if($('#header_file').val() == $('#body_file').val()){
+		$('#body_file').val('');
+
+		$('#extra_info').val('HB');
+	}
+	if($('#header_file').val() == $('#footer_file').val()){
+		$('#footer_file').val('');
+		$('#extra_info').val('HF');
+
+	}
+	if($('#footer_file').val() == $('#body_file').val()){
+		$('#body_file').val('');
+		$('#extra_info').val('FB');
+
+	}
+
+
+	 $('#upload_form').ajaxSubmit({ url: '/process_parameter/', type: 'post', 
+          success: function(data){ 
+
+            		if (data.status == 1) {            		
+            			
+						window.location.href = '/design_header/{{new_record_id}}/';
+						
+					}
+					else if(data.status == 3) {
+
+						alert(data.message);
+
+						$("#submit_button").prop('disabled', false);
+
+						// setTimeout(function(){ window.location.reload(); }, 500);
+					}
+
+					else{
+						alert(data.message);
+
+						$("#submit_button").prop('disabled', false);
+
+					}
+
+            }});
+}
+
+
+
+
+
+function valid_data_extension(){
+	var allow = new Array('csv', 'txt', 'CSV', 'TXT'); 
+
+	var error_msg = "File Type Not Supported";
+
+	
+
+		if($('#header_file').val() != ''){
+			var file = $("#header_file").val().split('\\')[2];
+		    var ext = file.split('.')[1];
+
+		    if(jQuery.inArray(ext, allow) == -1){
+			      alert(error_msg);
+
+				$("#submit_button").prop('disabled', false);
+
+
+			      return false;
+		    }
+
+		}
+
+		if( $("#body_file").val() != ''){
+			var file = $("#body_file").val().split('\\')[2];
+		    var ext = file.split('.')[1];
+
+		    if(jQuery.inArray(ext, allow) == -1){
+			      alert(error_msg);
+				
+				$("#submit_button").prop('disabled', false);
+
+
+			      return false;
+		    }
+		}
+
+		if($("#footer_file").val() != ''){
+			var file = $("#footer_file").val().split('\\')[2];
+		    var ext = file.split('.')[1];
+
+		    if(jQuery.inArray(ext, allow) == -1){
+			      alert(error_msg);
+
+				$("#submit_button").prop('disabled', false);
+
+
+			      return false;
+		    }
+
+		}
+
+		if($("#main_file").val() != ''){
+			var file = $("#main_file").val().split('\\')[2];
+		    var ext = file.split('.')[1];
+
+		    if(jQuery.inArray(ext, allow) == -1){
+			      alert(error_msg);
+
+				$("#submit_button").prop('disabled', false);
+
+
+			      return false;
+		    }
+
+		}
+		    
+		return true;
+	
+}
+
+
+function valid_header_extension(){
+    var fl = $("#header_file").val().split('\\')[2];
+    var ext = fl.split('.')[1];
+    // var allow = new Array('xls','xlsx','csv', 'txt', 'XLS', 'XLSX', 'CSV', 'TXT'); 
+    var allow = new Array('csv', 'txt', 'CSV', 'TXT'); 
+
+    error_msg = "File Type Not Supported";
+
+    if(jQuery.inArray(ext, allow) == -1){
+	      alert(error_msg);
+
+		$("#submit_button").prop('disabled', false);
+	      
+
+	      return false;
+    }
+
+    else{
+      
+      	return true;
+    }
+}
+
+
+$('#next_button').click(function(){
+
+	window.location.href = "/design_header/{{new_record_id}}/";
+})
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

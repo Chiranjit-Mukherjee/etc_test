@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+    	
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>exametc</title>
+
+    <!-- Bootstrap -->
+        
+    <!--begin::Web font -->
+<!-- 	<script>
+     WebFont.load({
+       google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+       active: function() {
+         sessionStorage.fonts = true;
+       }
+       });
+	</script> -->
+	<!--end::Web font -->
+        
+    <!--js_part-->
+    <script src="/static/js/bootstrap.js" type="text/javascript"></script>
+    <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/js/npm.js" type="text/javascript"></script>
+    <!--js_part_end-->
+    
+    <!--css_part-->
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Merienda One">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Poppins">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/static/css/bootstrap-theme.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!--for_menu-->
+    <link href="/static/css/menu/style.css" rel="stylesheet" type="text/css"> 
+    <link href="/static/css/menu/index.js" rel="stylesheet" type="text/css"> 
+    <!--for_menu_end-->
+    <link href="/static/css/customstyle.css" rel="stylesheet" type="text/css">
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <!--css_part_end-->
+
+	</head>
+
+	<body class="inner_page_body">
+    	
+       <!--logo_part-->
+       <div class="container-fluid top_part">
+           <div class="container">
+               <div class="col-md-12">
+                  <div class="row">
+
+                      <!--logo_and_navigation_part-->
+                                <!--middle_part-->
+                                  <nav id='cssmenu'>
+                                    <div class="logo" id="small_logo"><a href="index.php"><img src="/static/image/footerlogo.png" class="img-responsive"></a></div>
+                                    <!-- <div class="logo"><a href="index.php"><img src="image/logo.png" class="img-responsive"></a></div> -->
+                                    <div id="head-mobile"></div>
+                                    <div class="button"></div>
+                                    
+                                    <ul class="pull-right nav_top">
+                                         
+                                     <!-- <li class='active'><a href='stake_dashboard.html'>Dashboard</a></li>
+                                    
+                                     <li><a href='stake_add_service.html'>Add Service</a></li>     
+                                        
+                                     <li><a href='admin_history.html'>History</a></li>
+                                        
+                                     <li><a href='admin_view.html'>View</a></li> -->
+                                        
+                                     <li><a href='/dashboard/'>Dashboard</a></li>
+                                     
+                                     <li><a href='/user_logout/'>Logout</a></li>
+                                        
+                                      <div class="col-md-6">
+  
+  
+</div>
+                                    
+                                     
+                                     </ul>
+                                      
+                                 </nav>
+                                <!--middle_part_end-->
+                        <!--logo_and_navigation_part_end-->
+
+                  </div>
+               </div>
+           </div>
+       </div>
+       <!--logo_part_end-->
+        
+       <div class="container">
+  
+ 
+    
+ <!-- <h1>jQuery Touch-dnd Plugin Demos</h1>
+ <h2>Sortable</h2> -->
+    
+
+
+
+ <!-- <div class="col-md-4">
+  <div class="list" id="rhs">
+   <div style=" height:500px; overflow:scroll; overflow-x:hidden;">   
+   <table class="table table-bordered">
+    <ul style=" list-style:none;">
+    <tr class="table_header">
+     <td>Table Fields</td>
+    </tr>
+
+
+
+
+
+        {% for f in fields %}
+
+            <tr> <td><li style=" list-style:none;">{{f}}</li></td>   </tr>   
+
+        {% endfor %}
+
+
+
+
+    </ul>
+   </table>
+	  </div>
+ </div>
+ </div> -->
+		   
+ 
+ <div class="col-md-3">
+  <div class="list" id="rhs1">
+      
+ <!--   <table class="table table-bordered">
+    <ul style=" list-style:none;">
+    <tr class="table_header">
+     <td>File Fields</td>
+    </tr>
+    
+    {% for n in field_no %}
+
+    <tr> <td><li style=" list-style:none;"> C{{forloop.counter}}</li></td> </tr>
+
+    {% endfor %}
+
+    </ul>
+   </table> -->
+	  
+ </div>
+ </div>
+		   
+
+ <div class="col-md-12">
+  <div class="list" id="lhs">
+
+   <div style=" height:500px; overflow:scroll; overflow-x:hidden;">
+
+   <table class="table table-bordered">
+    <ul style=" list-style:none;">
+
+
+    <tr class="table_header">
+     <td><li style=" list-style:none;">Column Name</li></td>
+     <td><li style=" list-style:none;">Header from file</li></td>
+     <td><li style=" list-style:none;">Innova Prompt</li></td>
+     <td><li style=" list-style:none;">Type</li></td>
+     <td><li style=" list-style:none;">Search</li></td>
+     <td><li style=" list-style:none;">Code Field</li></td>
+    </tr>
+
+<form method="post" id="data_form"> {% csrf_token %}
+
+
+{% for f in fields %}
+                <tr>
+                 
+                 <td><li name="col{{forloop.counter}}" style=" list-style:none;">C{{forloop.counter}}</li></td>
+                 <!-- <td><li name="field{{forloop.counter}}" style=" list-style:none;">&nbsp;</li></td> -->
+
+                  <!-- original fields -->
+                  <td>{{f}}</td>
+
+                 <td><input type="text" name="tf{{forloop.counter}}" value="{{f}}"></td>
+              
+                
+
+                 <td>
+            	  <select name="hbf{{forloop.counter}}" class="form-control inputtype1">
+                		<option>N/A</option>
+                		<option>Header</option>
+                		<option>Body</option>
+                		<option>Footer</option>
+            	  </select>
+            	 </td>
+            		
+                 <td>
+
+                  <input type="checkbox" name="search{{forloop.counter}}">
+
+               </td>
+
+               <td><input type="checkbox" name="code_field{{forloop.counter}}" ></td>
+                </tr>
+
+{% endfor %}
+
+</form>
+
+    </ul>
+   </table>  
+   </div>
+
+   <div class="pull-right">
+
+    <button id="back_button" class="btn btn-success">Back</button>
+
+    <button id="submit_button" class="btn btn-success">Submit</button>
+  </div>  
+ 
+ </div>
+    
+
+  </div>
+
+
+<p></p>
+
+        
+       <!-- footer -->
+        <div class="container-fluid footer_background">
+         <div class="container">
+          <div class="col-md-12">
+           <div class="row">
+            <!--middle_part-->
+             <p>2018 &copy; Service Renewal Management theme by <a href="javascript:;">Iums Pvt. Ltd.</a></p>
+            <!--middle_part-->
+           </div>
+          </div>
+         </div>
+        </div>
+       <!-- footer_end -->
+       
+        <script src="/static/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+  <script src="/static/login/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+  <script src="/static/login/vendor/bootstrap/js/popper.js"></script>
+<!--===============================================================================================-->
+  <script src="/static/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+       <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
+       <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+       <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+       
+       <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+
+
+
+
+
+       <!-- <script src="/static/dragdrop/touch-dnd.js"></script>
+       <script type="text/javascript">
+          $(function() {
+            $('#lhs').sortable({ connectWith: '.droppable' })
+            $('#rhs').sortable({ connectWith: '#lhs' })
+            .on('sortable:receive', function(e, ui) {
+              ui.item.removeClass('draggable')
+            })
+            $('.draggable').draggable({ connectWith: '#rhs' })
+            $('.droppable').droppable({ activeClass: 'active', hoverClass: 'drop-here' })
+          })
+       </script>
+		
+	  <script type="text/javascript">
+          $(function() {
+            $('#lhs').sortable({ connectWith: '.droppable' })
+            $('#rhs1').sortable({ connectWith: '#lhs' })
+            .on('sortable:receive', function(e, ui) {
+              ui.item.removeClass('draggable')
+            })
+            $('.draggable').draggable({ connectWith: '#rhs1' })
+            $('.droppable').droppable({ activeClass: 'active', hoverClass: 'drop-here' })
+          })
+       </script>
+
+ -->
+
+<script type="text/javascript">
+  
+$('#submit_button').click(function(){
+
+  // $(this).prop('disabled', true);
+
+    console.log('working');
+
+    $.post( "/add_records/{{record_id}}/", $( "#data_form" ).serialize()).done(function(data){
+      console.log(data);
+
+      if(data.status == 1){
+
+        // window.location.href = '/upload_file/'
+       
+        window.location.href = '/make_mapping/{{record_id}}/';
+
+      }
+
+      else{
+        
+        alert(data.message);
+          // $(this).prop('disabled', false);
+      }
+    });
+});
+
+
+$('#back_button').click(function(){
+
+    window.location.href = "/take_parameter/{{record_id}}/";
+  });
+
+</script>
+        
+	</body>
+</html>

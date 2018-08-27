@@ -1,0 +1,43 @@
+h1,h2,h3,h4,h5,h6,a,p,div{ margin:0px; padding:0px;}
+p{ margin-bottom:0px !important;}
+
+/*top_part*/
+.top_part{ width:100%; background:#6760e1; margin-bottom:20px; font-family:Lato;}
+/*top_part*/                                      
+
+.inner_page_body{ width:100%; background:#ececec;}
+.dashboard_main_part{ width:100%;}
+.dashboard_middle_part{ width:100%; background:#fff; padding:20px 10px;}
+.table_header{ background:#bccff3; padding:10px 0px; font-family:Lato; font-size:14px; font-weight:500; color:#224a96; text-align:center;}
+.table_data{ font-size:14px; color:#9c9c9c; font-weight:300;}
+.custom_close{ width:30px; height:30px; border-radius:100%; background:#f26798; display:inline-block; text-align:center;}
+.custom_close i{ position:relative; top:4px; color:#fff;}
+.custom_edit{ width:30px; height:30px; border-radius:100%; background:#5e8ae4; display:inline-block; text-align:center;}
+.custom_edit i{ position:relative; top:4px; color:#fff;}
+
+.edit_form_middle_part{ width:100%; margin-top:20px; padding:20px; background:#fff; box-shadow:0px 0px 10px #c5c5c6;}
+.edit_form_title{ width:100%;}
+.edit_form_title h2{ font-size:19px; font-weight:300; margin:10px 0px 10px 0px; font-family:Poppins; color:#224dc9; padding-bottom:20px; border-bottom:1px solid #ccc;}
+.edit_form_middle{ width:100%; padding:10px; border:1px solid #d2d2d2;}
+.labelname{ font-family:Lato; font-weight:400; color:#9b9999;}
+.inputtype1{ border-left:2px solid #1ea8ff;}
+.form-group{ margin-bottom:5px;}
+.close_button{ width:30px; height:30px; display:inline-block; border-radius:100%; background:#a1a0a0; position:relative; left:-18px; text-align:center; z-index:1001;}
+.close_button i{ position:relative; top:4px; color:#222;}
+
+.page_heading_name{ width:100%;}
+.page_heading_name h2{ font-size:19px; font-weight:300; margin:10px 0px 10px 0px; font-family:Lato; color:#737375; padding-bottom:20px; border-bottom:1px solid #ccc;}
+
+.footer_background{ width:100%; background:#fff; padding:20px; position:fixed; left:0; bottom:0;}
+.footer_background p{ font-family:Lato; font-size:14px; color:#bfbff5;}
+
+.admin_view p{ font-size:15px; font-weight:300; margin-bottom:20px; color:#6f6c6c;}
+.red_text{ color:#f03297; font-weight:normal;}
+
+@media only screen and (min-width:0px) and (max-width:400px)
+{
+  .login_screen_background{ width:100%; background:url(../image/loginscreen_back_for_mobile.png) no-repeat;}    
+  .chamber_image{width:80px; height:80px; border-radius:100%; margin:auto;}
+  .chamber_image img{ width:80px; height:80px; border-radius:100%; margin:auto;}
+  .slot_chamber_name{ margin-top:20px;}
+}
